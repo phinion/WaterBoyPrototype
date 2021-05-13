@@ -31,20 +31,20 @@ public class PlayerInAirState : PlayerState
         oldIsTouchingWall = isTouchingWall;
         oldIsTouchingWallBack = isTouchingWallBack;
 
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
-        isTouchingWallBack = player.CheckIfTouchingBackWall();
-        isTouchingLedge = player.CheckIfTouchingLedge();
+        isGrounded = entity.CollisionSenses.Ground;
+        //isTouchingWall = player.CheckIfTouchingWall();
+        //isTouchingWallBack = player.CheckIfTouchingBackWall();
+        //isTouchingLedge = player.CheckIfTouchingLedge();
 
-        if(isTouchingWall && !isTouchingLedge)
-        {
-            player.LedgeClimbState.SetDetectedPosition(player.transform.position);
-        }
+        //if(isTouchingWall && !isTouchingLedge)
+        //{
+        //    player.LedgeClimbState.SetDetectedPosition(player.transform.position);
+        //}
 
-        if (!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack && (oldIsTouchingWall || oldIsTouchingWallBack))
-        {
-            StartWallJumpCoyoteTime();
-        }
+        //if (!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack && (oldIsTouchingWall || oldIsTouchingWallBack))
+        //{
+        //    StartWallJumpCoyoteTime();
+        //}
     }
 
     public override void Enter()
@@ -76,39 +76,39 @@ public class PlayerInAirState : PlayerState
 
         CheckJumpMultiplier();
 
-        if (isGrounded && player.CurrentVelocity.y < 0.01f)
+        if (isGrounded && entity.Movement.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
         } 
-        else if (isTouchingWall && !isTouchingLedge)
-        {
-            stateMachine.ChangeState(player.LedgeClimbState);
-        }
-        else if(jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime))
-        {
-            StopWallJumpCoyoteTime();
-            isTouchingWall = player.CheckIfTouchingWall();
-            player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
-            stateMachine.ChangeState(player.WallJumpState);
-        }
+        //else if (isTouchingWall && !isTouchingLedge)
+        //{
+        //    stateMachine.ChangeState(player.LedgeClimbState);
+        //}
+        //else if(jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime))
+        //{
+        //    StopWallJumpCoyoteTime();
+        //    isTouchingWall = player.CheckIfTouchingWall();
+        //    player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
+        //    stateMachine.ChangeState(player.WallJumpState);
+        //}
         else if(jumpInput && player.JumpState.CanJump())
         {
             stateMachine.ChangeState(player.JumpState);
         }
-        else if (isTouchingWall && grabInput)
-        {
-            stateMachine.ChangeState(player.WallGrabState);
-        }
-        else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
-        {
-            stateMachine.ChangeState(player.WallSlideState);
-        }
+        //else if (isTouchingWall && grabInput)
+        //{
+        //    stateMachine.ChangeState(player.WallGrabState);
+        //}
+        //else if (isTouchingWall && xInput == entity.Movement.FacingDirection && entity.Movement.CurrentVelocity.y <= 0)
+        //{
+        //    stateMachine.ChangeState(player.WallSlideState);
+        //}
         else
         {
-            player.CheckIfShouldFlip(xInput);
-            player.SetVelocityX(playerData.movementVelocity * xInput);
+            entity.Movement.CheckIfShouldFlip(xInput);
+            entity.Movement.SetVelocityX(playerData.movementVelocity * xInput);
 
-            player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
+            player.Anim.SetFloat("yVelocity", entity.Movement.CurrentVelocity.y);
         }
     }
 
@@ -118,10 +118,10 @@ public class PlayerInAirState : PlayerState
         {
             if (jumpInputStop)
             {
-                player.SetVelocityY(player.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
+                entity.Movement.SetVelocityY(entity.Movement.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
                 isJumping = false;
             }
-            else if (player.CurrentVelocity.y <= 0f)
+            else if (entity.Movement.CurrentVelocity.y <= 0f)
             {
                 isJumping = false;
             }

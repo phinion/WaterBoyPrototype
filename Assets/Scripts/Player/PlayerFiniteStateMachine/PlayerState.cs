@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerState
 {
+    protected Entity entity;
+
     protected Player player;
     protected PlayerStateMachine stateMachine;
     protected PlayerData playerData;
@@ -18,6 +20,7 @@ public class PlayerState
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName)
     {
         this.player = _player;
+        entity = player.Entity;
         this.stateMachine = _stateMachine;
         this.playerData = _playerData;
         this.animBoolName = _animBoolName;
@@ -60,5 +63,10 @@ public class PlayerState
     }
 
     public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
+
+    public bool GetIsExitingState()
+    {
+        return isExitingState;
+    }
 
 }

@@ -20,8 +20,8 @@ public class PlayerGroundedState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
+        isGrounded = entity.CollisionSenses.Ground;
+        //isTouchingWall = player.CheckIfTouchingWall();
     }
 
     public override void Enter()
@@ -53,10 +53,10 @@ public class PlayerGroundedState : PlayerState
             player.InAirState.StartCoyoteTime();
             stateMachine.ChangeState(player.InAirState);
         } 
-        else if(isTouchingWall && grabInput)
-        {
-            stateMachine.ChangeState(player.WallGrabState);
-        }
+        //else if(isTouchingWall && grabInput)
+        //{
+        //    stateMachine.ChangeState(player.WallGrabState);
+        //}
     }
 
     public override void PhysicsUpdate()
