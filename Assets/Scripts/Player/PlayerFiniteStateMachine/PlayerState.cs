@@ -61,4 +61,9 @@ public class PlayerState
 
     public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
 
+    public bool ExitingState
+    {
+        get => isExitingState;
+    }
+
 }

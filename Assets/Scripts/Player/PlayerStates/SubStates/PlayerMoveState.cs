@@ -30,9 +30,9 @@ public class PlayerMoveState : PlayerGroundedState
 
         player.CheckIfShouldFlip(xInput);
 
-        player.SetVelocityX(playerData.movementVelocity * xInput);
+        //player.SetVelocityX(playerData.movementVelocity * xInput);
 
-        if(xInput == 0 && !isExitingState)
+        if(Mathf.Abs(player.RB.velocity.x) < 0.01f)
         {
             stateMachine.ChangeState(player.IdleState);
         }
@@ -41,5 +41,15 @@ public class PlayerMoveState : PlayerGroundedState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+
+        if (xInput == 0)
+        {
+            player.RB.AddForce(new Vector2(playerData.movementVelocity * (player.RB.velocity.x < 0 ? 1 : -1), 0));
+        }
+        else
+        {
+            player.RB.AddForce(new Vector2(playerData.movementVelocity * xInput, 0));
+        }
+        player.RB.velocity = new Vector2(Mathf.Clamp(player.RB.velocity.x, -playerData.movementVelocity, playerData.movementVelocity),0);
     }
 }
