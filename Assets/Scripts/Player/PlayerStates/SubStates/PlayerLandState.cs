@@ -25,4 +25,14 @@ public class PlayerLandState : PlayerGroundedState
         }
 
     }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        if(Mathf.Abs(player.CurrentVelocity.x) > 0.01f)
+        {
+            player.RB.AddForce(new Vector2(playerData.movementVelocity * 2 * (player.CurrentVelocity.x < 0 ? 1 : -1), 0));
+        }
+    }
 }

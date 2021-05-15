@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     #region Check Transforms
 
-    [SerializeField]private Transform groundCheck;
+    [SerializeField] private Transform groundCheck;
     //[SerializeField]private Transform wallCheck;
     //[SerializeField]private Transform ledgeCheck;
 
@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
 
     public bool CheckIfGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position,playerData.groundCheckRadius,playerData.whatIsGround);
+        return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
     }
 
     //public bool CheckIfTouchingWall()
@@ -151,7 +151,10 @@ public class Player : MonoBehaviour
     {
         if (xInput != 0 && xInput != FacingDirection)
         {
-            Flip();
+            if ((RB.velocity.x > 0 && FacingDirection < 0) || (RB.velocity.x < 0 && FacingDirection > 0))
+            {
+                Flip();
+            }
         }
     }
 
