@@ -8804,7 +8804,6 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 1510c524edae71a458b41458ae3dfd7f, type: 2}
   groundCheck: {fileID: 319862241}
   wallCheck: {fileID: 518828825}
-  ledgeCheck: {fileID: 699791690}
 --- !u!1 &1596906052
 GameObject:
   m_ObjectHideFlags: 0
