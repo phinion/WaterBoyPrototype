@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerGroundedState : PlayerState
 {
     protected int xInput;
+    protected int yInput;
 
     private bool jumpInput;
-    private bool grabInput;
+    //private bool grabInput;
     private bool isGrounded;
     //private bool isTouchingWall;
 
@@ -41,8 +42,9 @@ public class PlayerGroundedState : PlayerState
         base.LogicUpdate();
 
         xInput = player.InputHandler.NormalizedInputX;
+        yInput = player.InputHandler.NormalizedInputY;
         jumpInput = player.InputHandler.JumpInput;
-        grabInput = player.InputHandler.GrabInput;
+        //grabInput = player.InputHandler.GrabInput;
 
         if (jumpInput && player.JumpState.CanJump())
         {

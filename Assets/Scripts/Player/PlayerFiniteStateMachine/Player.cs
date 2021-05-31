@@ -12,10 +12,11 @@ public class Player : MonoBehaviour
     public PlayerJumpState JumpState { get; private set; }
     public PlayerInAirState InAirState { get; private set; }
     public PlayerLandState LandState { get; private set; }
+    public PlayerSlideState SlideState { get; private set; }
     public PlayerWallSlideState WallSlideState { get; private set; }
     //public PlayerWallGrabState WallGrabState { get; private set; }
     //public PlayerWallClimbState WallClimbState { get; private set; }
-    //public PlayerWallJumpState WallJumpState { get; private set; }
+    public PlayerWallJumpState WallJumpState { get; private set; }
     //public PlayerLedgeClimbState LedgeClimbState { get; private set; }
 
     [SerializeField]
@@ -57,10 +58,11 @@ public class Player : MonoBehaviour
         JumpState = new PlayerJumpState(this, StateMachine, playerData, "jump");
         InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
         LandState = new PlayerLandState(this, StateMachine, playerData, "land");
+        SlideState = new PlayerSlideState(this, StateMachine, playerData, "slide");
         WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
         //WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallGrab");
         //WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
-        //WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "wallJump");
+        WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "wallJump");
         //LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimb");
 
 
