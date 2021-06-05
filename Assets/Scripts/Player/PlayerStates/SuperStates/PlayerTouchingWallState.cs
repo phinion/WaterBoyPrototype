@@ -10,7 +10,7 @@ public class PlayerTouchingWallState : PlayerState
     protected bool jumpInput;
     protected int xInput;
     //protected int yInput;
-    //protected bool isTouchingLedge;
+    protected bool isTouchingLedge;
 
     public PlayerTouchingWallState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
     {
@@ -32,12 +32,12 @@ public class PlayerTouchingWallState : PlayerState
 
         isGrounded = player.CheckIfGrounded();
         isTouchingWall = player.CheckIfTouchingWall();
-        //isTouchingLedge = player.CheckIfTouchingLedge();
+        isTouchingLedge = player.CheckIfTouchingLedge();
 
-        //if (isTouchingWall && !isTouchingLedge)
-        //{
-        //    player.LedgeClimbState.SetDetectedPosition(player.transform.position);
-        //}
+        if (isTouchingWall && !isTouchingLedge)
+        {
+            player.LedgeClimbState.SetDetectedPosition(player.transform.position);
+        }
     }
 
     public override void Enter()
@@ -73,10 +73,10 @@ public class PlayerTouchingWallState : PlayerState
         {
             stateMachine.ChangeState(player.InAirState);
         }
-        //else if (isTouchingWall && !isTouchingLedge)
-        //{
-        //    stateMachine.ChangeState(player.LedgeClimbState);
-        //}
+        else if (isTouchingWall && !isTouchingLedge)
+        {
+            stateMachine.ChangeState(player.LedgeClimbState);
+        }
     }
 
     public override void PhysicsUpdate()

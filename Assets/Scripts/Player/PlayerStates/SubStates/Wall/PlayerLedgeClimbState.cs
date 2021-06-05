@@ -1,96 +1,96 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class PlayerLedgeClimbState : PlayerState
-//{
-//    private Vector2 detectedPos;
-//    private Vector2 cornerPos;
-//    private Vector2 startPos;
-//    private Vector2 stopPos;
+public class PlayerLedgeClimbState : PlayerState
+{
+    private Vector2 detectedPos;
+    private Vector2 cornerPos;
+    private Vector2 startPos;
+    private Vector2 stopPos;
 
-//    private bool isHanging;
-//    private bool isClimbing = false;
+    private bool isHanging;
+    private bool isClimbing = false;
 
-//    private int xInput;
-//    private int yInput;
+    private int xInput;
+    private int yInput;
 
-//    public PlayerLedgeClimbState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
-//    {
-//    }
+    public PlayerLedgeClimbState(Player _player, PlayerStateMachine _stateMachine, PlayerData _playerData, string _animBoolName) : base(_player, _stateMachine, _playerData, _animBoolName)
+    {
+    }
 
-//    public override void AnimationFinishTrigger()
-//    {
-//        base.AnimationFinishTrigger();
-//        //player.Anim.SetBool("climbLedge", false);
-//    }
+    public override void AnimationFinishTrigger()
+    {
+        base.AnimationFinishTrigger();
+        //player.Anim.SetBool("climbLedge", false);
+    }
 
-//    public override void AnimationTrigger()
-//    {
-//        base.AnimationTrigger();
+    public override void AnimationTrigger()
+    {
+        base.AnimationTrigger();
 
-//        isHanging = true;
-//    }
+        isHanging = true;
+    }
 
-//    public override void Enter()
-//    {
-//        base.Enter();
+    public override void Enter()
+    {
+        base.Enter();
 
-//        player.SetVelocityZero();
-//        player.transform.position = detectedPos;
-//        cornerPos = player.DetermineCornerPos();
+        player.SetVelocityZero();
+        player.transform.position = detectedPos;
+        cornerPos = player.DetermineCornerPos();
 
-//        startPos.Set(cornerPos.x - (player.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
-//        stopPos.Set(cornerPos.x + (player.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
+        startPos.Set(cornerPos.x - (player.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
+        stopPos.Set(cornerPos.x + (player.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
 
-//        player.transform.position = startPos;
-//        Debug.Log("startpos " + startPos);
+        player.transform.position = startPos;
+        Debug.Log("startpos " + startPos);
 
-//        isHanging = true;
-//        isClimbing = false;
-//    }
+        isHanging = true;
+        isClimbing = false;
+    }
 
-//    public override void Exit()
-//    {
-//        base.Exit();
+    public override void Exit()
+    {
+        base.Exit();
 
-//        isHanging = false;
+        isHanging = false;
 
-//        if (isClimbing)
-//        {
-//            player.transform.position = stopPos;
-//            isClimbing = false;
-//        }
-//    }
+        if (isClimbing)
+        {
+            player.transform.position = stopPos;
+            isClimbing = false;
+        }
+    }
 
-//    public override void LogicUpdate()
-//    {
-//        base.LogicUpdate();
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
 
-//        //if (isAnimationFinished)
-//        //{
-//        //    stateMachine.ChangeState(player.IdleState);
-//        //}
-//        //else
-//        //{
-//            xInput = player.InputHandler.NormalizedInputX;
-//            yInput = player.InputHandler.NormalizedInputY;
+        //if (isAnimationFinished)
+        //{
+        //    stateMachine.ChangeState(player.IdleState);
+        //}
+        //else
+        //{
+        xInput = player.InputHandler.NormalizedInputX;
+        yInput = player.InputHandler.NormalizedInputY;
 
-//            player.SetVelocityZero();
-//            player.transform.position = startPos;
+        player.SetVelocityZero();
+        player.transform.position = startPos;
 
-//            if (xInput == player.FacingDirection && isHanging && !isClimbing)
-//            {
-//                isClimbing = true;
-//                stateMachine.ChangeState(player.IdleState);
-//                //player.Anim.SetBool("climbLedge", true);
-//            }
-//            else if (yInput == -1 && isHanging && !isClimbing)
-//            {
-//                stateMachine.ChangeState(player.InAirState);
-//            }
-//        //}
-//    }
+        if (xInput == player.FacingDirection && isHanging && !isClimbing)
+        {
+            isClimbing = true;
+            stateMachine.ChangeState(player.IdleState);
+            //player.Anim.SetBool("climbLedge", true);
+        }
+        else if (yInput == -1 && isHanging && !isClimbing)
+        {
+            stateMachine.ChangeState(player.InAirState);
+        }
+        //}
+    }
 
-//    public void SetDetectedPosition(Vector2 pos) => detectedPos = pos;
-//}
+    public void SetDetectedPosition(Vector2 pos) => detectedPos = pos;
+}
