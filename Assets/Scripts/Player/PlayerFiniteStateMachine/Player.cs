@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
 
+    public PlayerPuddleState PuddleState { get; private set; }
+
     [SerializeField]
     private PlayerData playerData;
 
@@ -28,6 +30,8 @@ public class Player : MonoBehaviour
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
+
+    public ParticleSystem puddleParticle { get; private set; }
     #endregion
 
     #region Check Transforms
@@ -64,7 +68,7 @@ public class Player : MonoBehaviour
         //WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "wallJump");
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimb");
-
+        PuddleState = new PlayerPuddleState(this, StateMachine, playerData, "puddle");
 
     }
 
@@ -73,6 +77,8 @@ public class Player : MonoBehaviour
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
+        puddleParticle = GetComponentInChildren<ParticleSystem>();
+
 
         FacingDirection = 1;
 
